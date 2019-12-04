@@ -15,7 +15,7 @@ toPath xs = unfoldr go (xs, (0,0))
     go (((r:rest):xs), p@(x,y)) =
       let n = read rest
       in Just $ case r of
-        -- 常に左から右、上から下になるように Point を配置
+        -- Point is always placed from left to right and from top to bottom
         'R' -> ((p, (x+n, y)), (xs, (x+n, y)))
         'L' -> (((x-n, y), p), (xs, (x-n, y)))
         'U' -> (((x, y+n), p), (xs, (x, y+n)))
