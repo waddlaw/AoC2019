@@ -33,7 +33,7 @@ cross' ((x1,y1),(x2,y2)) ((x3,y3),(x4,y4))
   | x1 < x3 && x3 < x2 && y4 < y1 && y1 < y3 = Just (abs x3 + abs y1)
   | otherwise = Nothing
 
-solve :: (Path, Path) -> Int
+solve :: (Path, Path) -> Distance
 solve (path1, path2) = minimum $ catMaybes [cross l1 l2 | l1 <- path1, l2 <- path2]
 
 main :: IO ()
