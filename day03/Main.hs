@@ -21,9 +21,6 @@ toPath xs = unfoldr go (xs, (0,0))
         'U' -> (((x, y+n), p), (xs, (x, y+n)))
         'D' -> ((p, (x, y-n)), (xs, (x, y-n)))
 
-calcCrossPoints :: (Path, Path) -> [Int]
-calcCrossPoints (path1, path2) = catMaybes [cross l1 l2 | l1 <- path1, l2 <- path2]
-
 cross :: Line -> Line -> Maybe Distance
 cross l1 l2
   | check l1  = cross' l1 l2
@@ -37,7 +34,7 @@ cross' ((x1,y1),(x2,y2)) ((x3,y3),(x4,y4))
   | otherwise = Nothing
 
 solve :: (Path, Path) -> Int
-solve = minimum . calcCrossPoints
+solve (path1, path2) = minimum $ catMaybes [cross l1 l2 | l1 <- path1, l2 <- path2]
 
 main :: IO ()
 main = mapM_ (print . solve) [ex0, ex1, ex2, problem]
