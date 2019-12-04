@@ -1,10 +1,12 @@
 module Main where
 
 import Data.List
+import Data.Maybe
 
-type Point = (Int, Int)
-type Line  = (Point, Point)
-type Path  = [Line]
+type Point    = (Int, Int)
+type Line     = (Point, Point)
+type Path     = [Line]
+type Distance = Int
 
 toPath :: [String] -> Path
 toPath xs = unfoldr go (xs, (0,0))
@@ -19,25 +21,23 @@ toPath xs = unfoldr go (xs, (0,0))
         'U' -> (((x, y+n), p), (xs, (x, y+n)))
         'D' -> ((p, (x, y-n)), (xs, (x, y-n)))
 
-calcCrossPoints :: (Path, Path) -> [Point]
-calcCrossPoints (path1, path2) = concat [cross l1 l2 | l1 <- path1, l2 <- path2]
+calcCrossPoints :: (Path, Path) -> [Int]
+calcCrossPoints (path1, path2) = catMaybes [cross l1 l2 | l1 <- path1, l2 <- path2]
 
-cross :: Line -> Line -> [Point]
+cross :: Line -> Line -> Maybe Distance
 cross l1 l2
   | check l1  = cross' l1 l2
   | otherwise = cross' l2 l1
   where
     check ((x1,_),(x2,_)) = x1 /= x2
 
-cross' :: Line -> Line -> [Point]
+cross' :: Line -> Line -> Maybe Distance
 cross' ((x1,y1),(x2,y2)) ((x3,y3),(x4,y4))
-  | x1 < x3 && x3 < x2 && y4 < y1 && y1 < y3 = [(x3,y1)]
-  | otherwise = []
+  | x1 < x3 && x3 < x2 && y4 < y1 && y1 < y3 = Just (abs x3 + abs y1)
+  | otherwise = Nothing
 
 solve :: (Path, Path) -> Int
-solve = minimum . map solve' . calcCrossPoints
-  where
-    solve' (x,y) = abs x + abs y
+solve = minimum . calcCrossPoints
 
 main :: IO ()
 main = mapM_ (print . solve) [ex0, ex1, ex2, problem]
