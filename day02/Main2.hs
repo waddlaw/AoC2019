@@ -42,7 +42,7 @@ indirectWrite arr pos v = do
 
 main :: IO ()
 main = do
-  let range = [1..99] :: [Int]
+  let range = [0..99] :: [Int]
   forM_ range $ \a ->
     forM_ range $ \b -> do
       r <- solve $ problem (a,b)
