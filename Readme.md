@@ -1,6 +1,7 @@
 # other people solution
 
 - [BartoszMilewski/AoC2019](https://github.com/BartoszMilewski/AoC2019)
+- [cdparks/advent2019](https://github.com/cdparks/advent2019)
 - [gotoki-no-joe/AdventOfCode-myAnswer](https://github.com/gotoki-no-joe/AdventOfCode-myAnswer/tree/master/2019)
 - [glguy/advent2019](https://github.com/glguy/advent2019)
 - [Infinisil/aoc19](https://github.com/Infinisil/aoc19)
